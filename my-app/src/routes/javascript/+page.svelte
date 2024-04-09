@@ -97,7 +97,48 @@
 		console.log(runningTotal);
 	}
 
+    console.log("STUFFFFF")
 
+    const stuff = {
+        prop1: "prop1",
+        prop2: "prop2",
+        prop3: "prop3",
+        prop4: "prop4",
+        prop5: "prop5",
+        prop6: "prop6",
+        prop7: "prop7",
+        prop8: "prop8",
+        prop9: "prop9"
+    }
+
+    class Stuff{
+        prop01
+
+        constructor(){
+
+        }
+    }
+
+    let newStuff = new Stuff(); 
+
+    console.log(newStuff); 
+
+    let newnewStuff = {...stuff, ...newStuff}; 
+    console.log(newnewStuff);
+
+    let e = [0,2,4,6,8];
+    let o = [1,3,5,7,9]; 
+    let a = [-1,e,o,-2]; 
+    console.log(a); 
+
+
+    console.log(newnewStuff); 
+
+    let str = JSON.stringify(newnewStuff);
+    console.log(str); 
+    
+    let obj = JSON.parse(str); 
+    console.log(obj); 
 
     //Arrays
 
