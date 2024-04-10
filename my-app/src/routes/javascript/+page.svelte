@@ -1,7 +1,12 @@
 <script>
+	import { onMount } from 'svelte';
+
+	/*
 	let variable = 5;
 
 	//console.log(variable);
+
+    
 
 	let doubleIt = (x) => {
 		return x * 2; //double the current value of variable
@@ -13,7 +18,7 @@
         % modulo ex: 
                         10%3 = 1
                         10 / 3 = 3 Remainder 1
-    */
+    
 	};
 
 	//console.log(doubleIt(20));
@@ -28,7 +33,7 @@
         let e = 5;)
 
     }
-  */
+  
 
 	function aggregate(a, b, c, d, e) {
 		console.log(a, b, c, d, e);
@@ -111,12 +116,54 @@
         prop9: "prop9"
     }
 
+    const coolColors = {
+        red: "#FF0000", 
+        blue: "#0000FF",
+        green: "#00FF00"
+    }
+
+    coolColors.red;
+
+    const lameColors = {
+        lightRed: "#550000",
+        lightOrange: "#552525"
+    }
+
+    const allColors = {...coolColors, ...lameColors}
+
+    const JoesColors = {
+        favColors: coolColors,
+        okColors: lameColors
+    }
+
+
+
+    console.log(JoesColors.favColors.red)
+
+    console.log(allColors, JoesColors); 
+
+    stuff["prop1"]
+
     class Stuff{
         prop01
 
         constructor(){
 
         }
+    }
+
+    class musicPreferences {
+        favGenres
+        top10Bands
+
+    }
+
+
+    class Person{
+        id
+        name
+        bday
+        musicStuff
     }
 
     let newStuff = new Stuff(); 
@@ -128,8 +175,13 @@
 
     let e = [0,2,4,6,8];
     let o = [1,3,5,7,9]; 
-    let a = [-1,e,o,-2]; 
+    let a = [...e, ...o]
+    //[0,2,4,5,8,1,3,5,7,9]
+    a.sort((a, b)=>{
+        return a-b; 
+    });
     console.log(a); 
+    //[0,1,2,3,4,5,6,7,8,9]
 
 
     console.log(newnewStuff); 
@@ -142,7 +194,33 @@
 
     //Arrays
 
-    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let arr = [9, 6, 3, 3, 4, 1, 6, 3, 8, 9] //<= push(10)
+    //index =  0  1  2  3  4  5  6  7  8  9
+    //               ^
+    
+    let long = arr.push(10);
+    let length = arr.length;
+    let agg = 0; 
+    let small = []; 
+    arr.forEach((elem)=>{
+        console.log(elem); 
+        if(elem<5){
+            small.push(elem); 
+        }
+    })
+
+    arr.fill(0, 0, 20); 
+
+    arr.at(0); // same as arr[0]; 
+
+    let bigElems = arr.filter((elem)=>{
+        return (elem>5)
+    })
+
+    
+
+    //[9, 6, 6, 8, 9]
+
     for(let num in arr){
         console.log(num);
     }
@@ -212,4 +290,147 @@
 
     console.log(Object.entries(newArray[0])[0][1]);
 
+
+
+
+
+  const name = 'Joe "the man" Stan'; 
+
+  const name2 = `Joe 'the man' Stan`
+
+  const knickName = 'the dude'
+  const fullName = `Joe '${knickName}' Stan`
+
+
+  let o1 = {
+    number1band: "",
+    number2band: "",
+    number3band: "",
+    number4band: "",
+    number5band: "",
+    number6band: "",
+    number1movie: "",
+    number2movie: ""
+  }
+
+  let catagory = "band"
+  for(let i = 1; i<7; i++){
+    o1[`number${i}${catagory}`] //o1['number4band']
+  }
+  catagory = "movie"
+  for(let i = 1; i<7; i++){
+    o1[`number${i}${catagory}`]
+  }
+
+*/
+
+	let o2 = {
+		number1band: '',
+		number2band: '',
+		number3band: '',
+		number4band: '',
+		number5band: '',
+		number6band: '',
+		number1movie: '',
+		number2movie: ''
+	};
+
+	console.log(o2);
+
+	let str2 = JSON.stringify(o2);
+
+	console.log(str2);
+
+	//console.log(JSON.parse(o2));
+	try {
+		//setup risky
+
+		//try the risky
+		console.log(JSON.parse(o2));
+	} catch (e) {
+		//what do if broke
+		//dont care
+	} finally {
+		//no matter what happens, this next (usually cleanup)
+	}
+
+	console.log('hurray we kept goin');
+    
+    /**
+     * @type HTMLUListElement
+     */
+    let List;
+
+	onMount(() => {
+		document.getElementById('go').addEventListener('click', go);
+        List = document.getElementById('Kan'); 
+	});
+
+	let times = 0;
+
+	async function go(t, e) {
+		getWeather(35.091346, -92.456199);
+        getRadioStations(); 
+        getDnDSpells(); 
+        getKanyeRest(); 
+		printout();
+	}
+
+    async function getKanyeRest(){
+        const url = `https://api.kanye.rest/`
+        const resonse = await fetch(url, {
+            method: 'GET',
+        })
+        let data = await resonse.json(); 
+        console.log(data); 
+        let li = document.createElement('li'); 
+        li.innerText = data.quote; 
+        List.appendChild(li); 
+    }
+
+    async function getDnDSpells(){
+        const url = `https://api.open5e.com/v1/spells/?format=json`
+        const response = await fetch(url, {
+            method: 'GET',
+        })
+        let data = await response.json(); 
+        console.log(data); 
+    }
+
+    async function getRadioStations() {
+        const url = `http://de1.api.radio-browser.info/json/stations/topclick`
+        const response = await fetch(url, {
+            method: 'GET',
+            
+        }); 
+        let data = await response.json(); 
+        console.log(data.filter(station => {
+            return station.countrycode === "US";
+        })); 
+    }
+
+	async function getWeather(lat, lon) {
+		const url = `https://api.weather.gov/points/${lat},${lon}`;
+		console.log(url);
+		const response = await fetch(url, {
+			method: 'GET'
+		});
+		let w = await response.json();
+		console.log(w);
+		console.log(w.properties.forecast);
+		const response2 = await fetch(w.properties.forecast, {
+			method: 'GET'
+		});
+		let f = await response2.json();
+		console.log(f);
+	}
+
+	async function printout() {
+		console.log(`button clicked ${times} times`);
+	}
 </script>
+
+<button id="go" type="button">Press to Go</button>
+<ul id='Kan'>
+
+</ul>
