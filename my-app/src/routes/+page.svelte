@@ -47,7 +47,7 @@
 	}
 
 	.parent {
-		height: 1200px;
+	height: 1200px;
         aspect-ratio: 9/16;
 		display: flex;
 		flex-direction: column;
